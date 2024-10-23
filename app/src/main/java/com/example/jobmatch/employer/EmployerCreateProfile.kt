@@ -41,7 +41,7 @@ fun EmployerCompanyProfile(navController: NavController){
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Image(
-            painter = painterResource(id = R.drawable.m),
+            painter = painterResource(id = R.drawable.logo),
             contentDescription = "LOGO",
             modifier = Modifier.size(200.dp)
         )
@@ -71,7 +71,7 @@ fun EmployerCompanyProfile(navController: NavController){
         )
 
         Button(
-            onClick = { navController.navigate(Routes.jobtoOffer) /*Log.i("Credential", "UserName:$UserName email:$email Password:$password")*/
+            onClick = { navController.navigate(Routes.jobtoOffer)
             }
         ) {
             Text(text = ">")

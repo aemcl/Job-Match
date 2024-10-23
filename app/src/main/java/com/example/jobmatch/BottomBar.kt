@@ -1,6 +1,7 @@
-package com.example.jobmatch.employee
+@file:OptIn(ExperimentalMaterial3Api::class)
 
-import android.app.Notification
+package com.example.jobmatch
+
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
@@ -10,11 +11,17 @@ import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material3.Badge
 import androidx.compose.material3.BadgedBox
+import androidx.compose.material3.CenterAlignedTopAppBar
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
@@ -22,14 +29,17 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.core.app.NotificationCompat.MessagingStyle.Message
-import com.example.jobmatch.employee.pages.HomePage
-import com.example.jobmatch.employee.pages.MessagePage
-import com.example.jobmatch.employee.pages.NotificationPage
-import com.example.jobmatch.employee.pages.Profile
+import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.text.style.TextOverflow
+import androidx.navigation.NavController
+import com.example.jobmatch.employer.NavItem
+import com.example.jobmatch.employer.pages.EmployerHomePage
+import com.example.jobmatch.employer.pages.EmployerMessagePage
+import com.example.jobmatch.employer.pages.EmployerNotificationPage
+import com.example.jobmatch.employer.pages.EmployerProfile
 
 @Composable
-fun MainScreen(modifier: Modifier=Modifier){
+fun BottomBar(navController: NavController){
 
     val navItemList = listOf(
         NavItem("Home", Icons.Default.Home, 0),
@@ -44,6 +54,8 @@ fun MainScreen(modifier: Modifier=Modifier){
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
+        // .background(color = Color(0XFF2E77AE))
+
         bottomBar = {
             NavigationBar {
                 navItemList.forEachIndexed{ index, navItem ->
@@ -56,29 +68,29 @@ fun MainScreen(modifier: Modifier=Modifier){
                                     Badge(){
                                         Text(text = navItem.badgeCount.toString())
                                     }
-                                Icon(imageVector = navItem.icon, contentDescription = "Icon")
                             } ) {
-
+                                Icon(imageVector = navItem.icon, contentDescription = "Icon")
                             }
                         },
                         label = {
                             Text(text = navItem.label)
                         }
-                        )
+                    )
                 }
             }
         }
-    ) {innerPadding ->
-        ContentScreen(modifier = Modifier.padding(innerPadding), selectedIndex)
+    ) {
+            innerPadding ->
+        ContentScreen(modifier = Modifier.padding(innerPadding), selectedIndex, navController)
     }
 }
 
 @Composable
-fun ContentScreen (modifier: Modifier = Modifier, selectedIndex : Int){
+fun ContentScreen (modifier: Modifier = Modifier, selectedIndex : Int, navController: NavController){
     when(selectedIndex){
-        0-> HomePage()
-        1 -> MessagePage()
-        2 -> NotificationPage()
-        3 -> Profile()
+        0 -> EmployerHomePage(navController)
+        1 -> EmployerMessagePage(navController)
+        2 -> EmployerNotificationPage()
+        3 -> EmployerProfile(navController)
     }
 }

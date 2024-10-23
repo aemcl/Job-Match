@@ -1,17 +1,23 @@
 package com.example.jobmatch
 
+import JobCredentials
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.material3.SearchBar
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.jobmatch.employee.EmployeeMainScreen
 import com.example.jobmatch.employer.EmployerCompanyProfile
-import com.example.jobmatch.employer.JobCredentials
-import com.example.jobmatch.employer.JobToOffer
+import com.example.jobmatch.employer.EmployerMainScreen
+import com.example.jobmatch.employer.JobInformation
 import com.example.jobmatch.employer.RecommendedWorkers
-import com.example.jobmatch.employer.WorkInformation
+import com.example.jobmatch.employer.pages.EmployerHomePage
+import com.example.jobmatch.forms.EmployeeForm
+import com.example.jobmatch.forms.EmployerForm
+import com.example.jobmatch.pages.NewMessage
 
 
 class MainActivity : ComponentActivity() {
@@ -20,7 +26,11 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             val navController = rememberNavController()
-            NavHost(navController = navController, startDestination = Routes.home, builder = {
+            NavHost(navController = navController, startDestination = Routes.welcome, builder = {
+                composable(Routes.welcome) {
+                    Welcome(navController)
+                }
+
                 composable(Routes.home) {
                     Home(navController)
                 }
@@ -33,6 +43,18 @@ class MainActivity : ComponentActivity() {
                     ForgotPassword(navController)
                 }
 
+                composable(Routes.changepass) {
+                    ChangePassword(navController)
+                }
+
+                composable(Routes.edit) {
+                    Edit(navController)
+                }
+
+                composable(Routes.search) {
+                    MainSearchBar(navController)
+                }
+
                 composable(Routes.signup) {
                     SignUp(navController)
                 }
@@ -41,12 +63,16 @@ class MainActivity : ComponentActivity() {
                     EmployerCompanyProfile(navController)
                 }
 
-                composable(Routes.jobtoOffer) {
-                    JobToOffer(navController)
+                composable(Routes.employerMainScreen) {
+                    EmployerMainScreen(navController)
+                }
+
+                composable(Routes.employeeMainScreen) {
+                    EmployeeMainScreen(navController)
                 }
 
                 composable(Routes.workinformation) {
-                    WorkInformation(navController)
+                    JobInformation(navController)
                 }
 
                 composable(Routes.jobcredentials) {
@@ -54,8 +80,21 @@ class MainActivity : ComponentActivity() {
                 }
 
                 composable(Routes.recoWorkers) {
-                    RecommendedWorkers(navController)
+                    RecommendedWorkers()
                 }
+
+                composable(Routes.newMessage) {
+                    NewMessage()
+                }
+
+                composable(Routes.employeeForm) {
+                    EmployeeForm(navController)
+                }
+
+                composable(Routes.employerForm) {
+                    EmployerForm(navController)
+                }
+
             })
         }
     }

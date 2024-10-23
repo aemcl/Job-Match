@@ -1,18 +1,13 @@
 package com.example.jobmatch.employer
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.PlayArrow
-import androidx.compose.material.icons.filled.Send
 import androidx.compose.material3.Button
-import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -30,7 +25,7 @@ import com.example.jobmatch.R
 import com.example.jobmatch.Routes
 
 @Composable
-fun WorkInformation(navController: NavController){
+fun JobInformation(navController: NavController){
 
     var jobtype by remember {
         mutableStateOf("")
@@ -46,12 +41,7 @@ fun WorkInformation(navController: NavController){
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Image(
-            painter = painterResource(id = R.drawable.m),
-            contentDescription = "LOGO",
-            modifier = Modifier.size(200.dp)
-        )
-        Text(text = "Job Information", fontSize = 24.sp)
+        Text(text = "Enter Job Information", fontSize = 24.sp)
 
         Spacer(modifier = Modifier.height(4.dp))
 
@@ -76,6 +66,7 @@ fun WorkInformation(navController: NavController){
             label = { Text(text = "Salary") }
         )
 
+        Spacer(modifier = Modifier.height(10.dp))
         Button(
             onClick = { navController.navigate(Routes.jobcredentials) /*Log.i("Credential", "UserName:$UserName email:$email Password:$password")*/
             }

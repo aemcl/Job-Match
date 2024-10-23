@@ -21,36 +21,43 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 
 @Composable
-fun ForgotPassword(navController: NavController){
+fun ChangePassword(navController: NavController){
 
-    var securityquestion = "What is my Middle Name?" //usba ni para sa database
-    var answer by remember {
+    var newPassword by remember {
         mutableStateOf("")
-    } //kani pod
+    }
 
-    Column(
+    var confirmpass by remember {
+        mutableStateOf("")
+    }
+
+    Column (
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Text(text = "Security Question: ${securityquestion}")
-
-        Spacer(modifier = Modifier.height(16.dp))
+    ){
         OutlinedTextField(
-            value = answer,
-            onValueChange = {answer = it},
-            label = { Text(text = "Write your answer here.")})
+            value = newPassword,
+            onValueChange = {newPassword = it},
+            label = { Text(text = "New Password") })
 
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(12.dp))
 
-        Button(onClick = { navController.navigate(Routes.changepass)},
-                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFAA300)),
-                modifier = Modifier
-                    .width(280.dp)
-                    .height(50.dp)
+        OutlinedTextField(
+            value = confirmpass,
+            onValueChange = {confirmpass = it},
+            label = { Text(text = "Confirm New Password") }
+        )
+
+        Spacer(modifier = Modifier.height(20.dp))
+
+        Button(onClick = { navController.navigate(Routes.login)},
+            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFAA300)),
+            modifier = Modifier
+                .width(280.dp)
+                .height(50.dp)
         ) {
-            Text(text = "Verify", fontSize = 20.sp)
+            Text(text = "Save", fontSize = 20.sp)
         }
     }
-
 }
